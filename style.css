@@ -1,0 +1,903 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@700&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
+
+:root {
+  --buttonshadowsz: 0px 4px 0px 0px;
+  --buttonshadowbigsz: 0px 5px 0px;
+  --dropshadow: 3px 3px 15px #23232348;
+  --buttontransform: translate(0px, 1.5px);
+  --accent: #263966;
+  --accent-shaded: #4e649e;
+  --accentlight: #537998;
+  --shadowlight: 0px 0px 4px var(--accentlight);
+  --accentbg: #e9f0f7;
+  --accentbg-shaded: color-mix(in oklab, var(--accentbg) 70%, #46579b 30%);
+  --notwhite: #f5f5f5;
+  --notwhite-shaded: #aea9a3;
+  --fore: #363636;
+  --bordrad: 10px;
+  --accentbordersz: 1px none;
+  --halfwidthflex-w: 90%;
+  --medwidthflex-w: 100%;
+  --eqnwidthmult: 0.95;
+}
+
+body {
+  font-family: "Source Sans 3", system-ui, -apple-system, sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  color: var(--fore);
+}
+
+em {
+  color: var(--accent);
+}
+
+.intro,
+h1,
+h2 {
+  font-family: "Manrope", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+
+.intro {
+  --iconsz: 32px;
+  --venuesz: 0.75rem;
+  --authors-relative-shift: 0;
+  --nav-upshift-mult: -0.5;
+  --nav-flex-basis: 25%;
+  --nav-special-flex-basis: 70%;
+  margin: 0px auto;
+  padding-top: 2px;
+  /* box-shadow: var(--shadow); */
+
+  .logobox {
+    position: absolute;
+    width: var(--iconsz);
+    aspect-ratio: 1;
+    display: flex;
+    background-color: white;
+    box-shadow: var(--buttonshadowsz) var(--notwhite-shaded), var(--dropshadow);
+    border-radius: var(--bordrad);
+
+    >img {
+      width: 96%;
+      margin: auto auto;
+    }
+  }
+
+  .logobox:hover {
+    box-shadow: var(--shadowlight), var(--dropshadow);
+    transform: var(--buttontransform);
+  }
+
+  .titlebox {
+    margin-top: calc(var(--iconsz) * 0.5);
+    margin-left: calc(var(--iconsz) * 0.66);
+    margin-right: calc(var(--iconsz) * 0.66);
+    background-color: var(--accentbg);
+    box-shadow: var(--buttonshadowbigsz) var(--accentbg-shaded), var(--dropshadow);
+    border: var(--accentbordersz) var(--accentlight);
+    border-radius: var(--bordrad);
+    padding: 3px calc(var(--iconsz) / 2);
+    font-size: 1.75rem;
+    min-height: 3.75rem;
+
+    h1 {
+      margin-top: 0.57em;
+      margin-bottom: 0.67em;
+      /* this is default h1 bottom margin */
+    }
+  }
+
+  nav {
+    margin-top: calc(-1 * var(--nav-upshift-mult) * var(--venuesz));
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 8px;
+    column-gap: calc(0.5 * var(--venuesz));
+
+    >* {
+      display: block;
+      flex: 0 1 var(--nav-flex-basis);
+      border-radius: var(--bordrad);
+      background-color: var(--accent);
+      box-shadow: var(--buttonshadowsz) var(--accent-shaded), var(--dropshadow);
+      color: rgb(242, 247, 252);
+      padding: 0px calc(var(--venuesz) * 1.12);
+      font-size: var(--venuesz);
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    >.venue {
+      background-color: var(--notwhite);
+      box-shadow: var(--buttonshadowsz) var(--notwhite-shaded), var(--dropshadow);
+      color: var(--fore);
+      flex: 0 1 var(--nav-special-flex-basis);
+      text-align: center;
+      justify-content: center;
+    }
+
+    >.venue:hover {
+      background-color: var(--accentbg);
+      box-shadow: var(--shadowlight), var(--dropshadow);
+      transform: var(--buttontransform);
+    }
+
+    >a {
+      transition: background-color 0.1s;
+      text-decoration: none;
+      text-wrap: wrap auto;
+    }
+
+    >a:hover {
+      background-color: var(--accentlight);
+      box-shadow: var(--shadowlight), var(--dropshadow);
+      transform: var(--buttontransform);
+    }
+
+    .icon {
+      margin-right: 0.5rem;
+    }
+
+  }
+
+  .authors {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    width: 80%;
+    flex-wrap: wrap;
+    font-size: 1rem;
+
+    >* {
+      flex: auto;
+      text-align: center;
+      margin-left: 6px;
+      margin-right: 6px;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      text-underline-offset: 3px;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+    }
+  }
+
+  .affiliations {
+    text-align: center;
+    margin: 0px auto;
+    font-size: 1.3rem;
+  }
+
+  .note {
+    text-align: center;
+    margin: 10px auto;
+    font-size: 0.9rem;
+  }
+}
+
+video {
+  position: relative;
+}
+
+.qtrwidthflex {
+  display: block;
+  width: calc(0.5 * var(--halfwidthflex-w));
+  margin: 0px auto;
+}
+
+.teaser {
+  .qtrwidthflex {
+    text-align: center;
+
+    >video.srcshape {
+      width: 42%;
+      z-index: 3;
+    }
+
+    >video.rsltshape {
+      width: 84%;
+      z-index: 2;
+    }
+  }
+
+  video.srcshape {
+    width: 100%;
+  }
+}
+
+.imgsflex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  >* {
+    flex: initial;
+  }
+
+  .marginhack {
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+}
+
+.flexgap {
+  gap: 8px;
+}
+
+
+section {
+  margin: 4px auto;
+  max-width: 1300px;
+}
+
+
+.blcent {
+  display: block;
+  margin: 0 auto;
+}
+
+.fullwidth {
+  width: 100%
+}
+
+.mediumwidth {
+  width: var(--medwidthflex-w);
+}
+
+.medsmallwidth {
+  width: calc(1.2 * var(--halfwidthflex-w));
+}
+
+.equationwidth {
+  --per-eqn-mult: 1;
+  width: calc(var(--per-eqn-mult) * var(--eqnwidthmult) * var(--medwidthflex-w));
+}
+
+.smallwidth {
+  width: calc(0.9 * var(--halfwidthflex-w));
+}
+
+.halfwidthflex {
+  display: block;
+  width: var(--halfwidthflex-w);
+  margin: 0px auto;
+}
+
+
+p {
+  font-size: 1.2rem;
+}
+
+.p-margin {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.graybox {
+  border-radius: var(--bordrad);
+  box-shadow: var(--buttonshadowsz) var(--notwhite-shaded), var(--dropshadow);
+  background-color: var(--notwhite);
+  padding: 1.2rem 1.6rem;
+
+  >p:first-of-type {
+    margin-top: 0px;
+  }
+
+  >p:last-of-type {
+    margin-bottom: 0px;
+  }
+}
+
+.step-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  margin: 0 0.1rem;
+  padding: 0;
+  border-radius: 50%;
+  background-color: #666666;
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1;
+  vertical-align: 0%;
+  transform: translateY(-1px);
+}
+
+.text-green {
+  color: rgb(140, 180, 128);
+}
+
+.text-blue {
+  color: rgb(66, 140, 210);
+}
+
+.text-yellow {
+  color: rgb(245, 176, 0);
+}
+
+figure {
+  margin: 0;
+}
+
+figure img {
+  width: 100%;
+  display: block;
+}
+
+figcaption.caption {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--accent);
+  text-align: center;
+  margin-top: 0.4rem;
+}
+
+.grid-container-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 0;
+  grid-auto-rows: 1fr;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 25px;
+}
+
+.grid-container-4:first-of-type {
+  margin-bottom: 1rem;
+}
+
+/* Hide gesture overlay (finger icon) on model-viewer */
+model-viewer::part(default-slotted-content) {
+  display: none !important;
+}
+
+model-viewer::after {
+  display: none !important;
+}
+
+.comparison-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.comparison-label {
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-align: center;
+  color: var(--accent);
+  min-height: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  order: 2;
+}
+
+.comparison-instruction {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 0.1rem;
+  text-align: left;
+  margin-left: 1.6rem;
+}
+
+.comparison-rotated model-viewer {
+  transform: rotateZ(90deg);
+}
+
+.comparison-content {
+  width: 100%;
+  height: 180px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  order: 1;
+}
+
+@media (min-width: 660px) {
+  .comparison-content {
+    height: 250px;
+  }
+}
+
+.comparison-content img {
+  width: 100%;
+  height: 100%;
+  max-width: 67%;
+  max-height: 67%;
+  object-fit: contain;
+  align-self: flex-end;
+}
+
+/* Move robotic arm image upwards */
+.grid-container-4:nth-of-type(2) .comparison-item:first-child img {
+  transform: translateY(-0.4em);
+}
+
+/* Style links in graybox */
+.graybox a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.graybox a:hover {
+  color: var(--accentlight);
+}
+
+.comparison-content model-viewer {
+  width: 100%;
+  height: 100%;
+}
+
+/* ---- BibTeX copy button ---- */
+.bibtex-wrapper {
+  position: relative;
+}
+
+.bibtex-wrapper pre {
+  line-height: 1.5;
+}
+
+.bibtex-copy-btn {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.55rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.82rem;
+  font-family: inherit;
+  line-height: 1;
+  color: #444;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.12s ease;
+}
+
+.bibtex-copy-btn:hover {
+  background: #ffffff;
+  color: #1f2933;
+  border-color: rgba(0, 0, 0, 0.25);
+}
+
+.bibtex-copy-btn:active {
+  transform: translateY(1px);
+}
+
+.bibtex-copy-btn:focus-visible {
+  outline: 2px solid #4a6fff;
+  outline-offset: 2px;
+}
+
+.bibtex-copy-btn.is-success {
+  background: #e7f8ee;
+  border-color: rgba(34, 153, 84, 0.55);
+  color: #1f7a4a;
+}
+
+.bibtex-copy-btn.is-error {
+  background: #fde7e3;
+  border-color: rgba(192, 57, 43, 0.55);
+  color: #a93226;
+}
+
+h2 {
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+  text-align: center;
+  font-size: 2.3rem;
+  padding: 4px 1.2rem;
+  position: relative;
+}
+
+/* ---- Heading anchor links ---- */
+.heading-anchor {
+  position: absolute;
+  right: calc(100% + 0.45em);
+  top: 50%;
+  transform: translateY(-50%) translateX(4px);
+  color: var(--accent);
+  opacity: 0;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.85em;
+  transition: opacity 0.18s ease, color 0.18s ease, transform 0.18s ease;
+  user-select: none;
+}
+
+section[id] h2:hover .heading-anchor,
+section[id] h2:focus-within .heading-anchor,
+.heading-anchor:focus,
+.heading-anchor:hover {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+  color: var(--accentlight);
+  outline: none;
+}
+
+/* On narrow screens the anchor would push off the left edge */
+@media (max-width: 640px) {
+  .heading-anchor {
+    position: static;
+    display: block;
+    margin-bottom: 0.1em;
+    transform: none;
+    font-size: 0.7em;
+  }
+
+  section[id] h2:hover .heading-anchor,
+  section[id] h2:focus-within .heading-anchor {
+    transform: none;
+  }
+}
+
+/* ---- Floating side mini-TOC ----
+   Vertical stack of dots + labels pinned to the right edge. Hidden by
+   default and shown via .is-visible once the user has scrolled past
+   the intro. Hidden entirely on screens that don't have room for it. */
+.side-toc {
+  position: fixed;
+  top: 50%;
+  right: 0.9rem;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  z-index: 50;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.side-toc.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.side-toc a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  text-decoration: none;
+  color: #555;
+  font-size: 0.78rem;
+  line-height: 1;
+}
+
+.side-toc-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.22);
+  flex-shrink: 0;
+  transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.side-toc-label {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  opacity: 0;
+  transform: translateX(6px);
+  transition: opacity 0.18s ease, transform 0.18s ease, color 0.18s ease;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* Reveal labels on hover of the whole TOC and always for the active entry. */
+.side-toc:hover .side-toc-label,
+.side-toc a.is-active .side-toc-label,
+.side-toc a:focus-visible .side-toc-label {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.side-toc a:hover .side-toc-dot,
+.side-toc a:focus-visible .side-toc-dot {
+  background: var(--accentlight);
+}
+
+.side-toc a.is-active .side-toc-dot {
+  background: var(--accent);
+  transform: scale(1.4);
+  box-shadow: 0 0 0 4px rgba(38, 57, 102, 0.15);
+}
+
+.side-toc a.is-active .side-toc-label {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* Hide the side TOC on screens too narrow to fit it next to the page
+   without overlapping content. */
+@media (max-width: 1216px) {
+  .side-toc {
+    display: none;
+  }
+}
+
+i.nbsp:before {
+  content: "\a0"
+}
+
+i.wide-nbsp:before,
+i.med-nbsp:before {
+  content: " ";
+}
+
+pre {
+  overflow-x: auto;
+}
+
+@media (min-width: 100px) {
+  .intro {
+    --iconsz: 32px;
+    --venuesz: 0.75rem;
+    --authors-relative-shift: 0;
+    --nav-upshift-mult: -0.8;
+    --nav-flex-basis: 25%;
+    --nav-special-flex-basis: 70%;
+
+    .authors {
+      font-size: 1rem;
+    }
+
+    .affiliations {
+      font-size: 1rem;
+    }
+
+    nav {
+      justify-content: center;
+      margin-right: auto;
+    }
+  }
+
+  section {
+    width: calc(94.5vw - 30px);
+    padding: 7px 15px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  :root {
+    --halfwidthflex-w: 90%;
+    --medwidthflex-w: 100%;
+    --eqnwidthmult: 1.1;
+  }
+
+
+}
+
+
+@media (min-width: 350px) {
+  .intro {
+    --iconsz: 48px;
+    --venuesz: 0.9rem;
+    --authors-relative-shift: 0.1;
+    --nav-upshift-mult: -0.8;
+    --nav-flex-basis: 25%;
+    --nav-special-flex-basis: 70%;
+
+    .authors {
+      font-size: 1.1rem;
+    }
+  }
+
+  section {
+    width: calc(92.5vw - 30px);
+    padding: 9px 20px;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  h2 {
+    font-size: 1.55rem;
+  }
+
+
+  :root {
+    --halfwidthflex-w: 81%;
+    --eqnwidthmult: 1;
+  }
+
+}
+
+@media (min-width: 430px) {
+  .intro {
+    --nav-flex-basis: auto;
+    --nav-special-flex-basis: auto;
+
+    nav {
+      flex-wrap: nowrap;
+    }
+  }
+
+}
+
+@media (min-width: 660px) {
+  .intro {
+    --iconsz: 68px;
+    --venuesz: 1.05rem;
+    --authors-relative-shift: 0.19;
+    --nav-upshift-mult: -0.8;
+
+    .authors {
+      font-size: 1.2rem;
+    }
+  }
+
+  section {
+    width: calc(72vw + 80px - 30px);
+    padding: 11px 25px;
+
+  }
+
+  h1 {
+    font-size: 1.85rem;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  :root {
+    --halfwidthflex-w: 70%;
+    --medwidthflex-w: 92.5%;
+    --eqnwidthmult: 0.82;
+  }
+
+
+}
+
+@media (min-width: 900px) {
+  .intro {
+    --iconsz: 80px;
+    --venuesz: 1.1rem;
+    --authors-relative-shift: 0.28;
+    --nav-upshift-mult: 1;
+
+    .authors {
+      font-size: 1.25rem;
+    }
+
+    .affiliations {
+      font-size: 1.1rem;
+    }
+
+    nav {
+      justify-content: right;
+      margin-right: 10%;
+    }
+  }
+
+  section {
+    width: calc(60vw + 190px - 30px);
+    padding: 12px 30px;
+
+  }
+
+  h1 {
+    font-size: 2.375rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  :root {
+    --halfwidthflex-w: 49%;
+    --medwidthflex-w: 90%;
+    --eqnwidthmult: 0.65;
+  }
+
+
+  i.med-nbsp:before {
+    content: "\a0";
+  }
+}
+
+@media (min-width: 1281px) {
+  .intro {
+    --iconsz: 80px;
+    --venuesz: 1.17rem;
+    --authors-relative-shift: 0.24;
+    --nav-upshift-mult: 1;
+
+    .authors {
+      font-size: 1.3rem;
+    }
+  }
+
+  section {
+    width: calc(50vw + 280px - 30px);
+    padding: 15px 35px;
+
+  }
+
+  h1 {
+    font-size: 2.65rem;
+  }
+
+  h2 {
+    font-size: 2.3rem;
+  }
+
+  :root {
+    --halfwidthflex-w: 49%;
+    --medwidthflex-w: 85%;
+    --eqnwidthmult: 0.55;
+  }
+
+}
+
+@media (min-width: 1700px) {
+  i.wide-nbsp:before {
+    content: "\a0";
+  }
+}
+
+/* Page footer */
+.page-footer {
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: var(--fore);
+}
+
+.page-footer p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.page-footer a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+
+.page-footer a:hover {
+  color: var(--accentlight);
+}

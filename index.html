@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>RADmesh: Remesh-Aware Mesh Deformation</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="style.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <!-- <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script> -->
+  <style>
+    /* from https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css */
+    @font-face {
+      font-family: 'Academicons';
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url('https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/fonts/academicons.eot') format('embedded-opentype'),
+        url('https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/fonts/academicons.ttf') format('truetype'),
+        url('https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/fonts/academicons.woff') format('woff'),
+        url('https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/fonts/academicons.svg') format('svg');
+    }
+
+    .ai {
+      font-family: 'Academicons';
+      font-weight: 400;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-font-smoothing: antialiased;
+      display: inline-block;
+      font-style: normal;
+      font-variant: normal;
+      text-rendering: auto;
+      line-height: 1;
+    }
+
+    .ai-arxiv:before {
+      content: "\e974";
+    }
+  </style>
+
+  <meta name="description" content="RADmesh: Remesh-Aware Mesh Deformation">
+  <meta name="keywords" content="mesh, geometry, deformation, isotropic, remeshing, remesh-aware, generative 3D">
+
+  <meta property='og:title' content='RADmesh: Remesh-Aware Mesh Deformation' />
+  <meta property='og:url' content='https://threedle.github.io/radmesh/' />
+  <!-- <meta property='og:image' content='' /> -->
+  <meta property="og:type" content="website" />
+</head>
+
+<body>
+  <section class="intro" aria-label="intro">
+    <a href="https://3dl.cs.uchicago.edu" aria-label="3DL threedle home">
+      <div class="logobox">
+        <img src="https://threedle.github.io/geometry-in-style/assets/threedle-icon-160.png" alt="3DL threedle logo">
+      </div>
+    </a>
+    <div class="titlebox">
+      <h1>RADmesh: Remesh-Aware Mesh Deformation</h1>
+    </div>
+    <nav>
+      <a target="_blank" href="#" class="venue" aria-label="venue"><i class="icon fas fa-map-marker-alt"
+          aria-hidden="true"></i>ECCV 2026</a>
+      <a target="_blank" href="#" aria-label="paper pdf">
+        <i class="icon fas fa-file-pdf"></i>Paper
+      </a>
+      <a target="_blank" href="#"><i class="icon ai ai-arxiv"></i>arXiv</a>
+      <a target="_blank" href="https://github.com/threedle/radmesh/" aria-label="code github"><i
+          class="icon fab fa-github"></i>Code</a>
+    </nav>
+    <div class="authors" aria-label="authors">
+      <span><a href="https://people.cs.uchicago.edu/~namanh">Nam Anh Dinh</a><sup>1</sup></span>
+      <span><a href="https://itailang.github.io">Itai Lang</a><sup>1</sup></span>
+      <span><a href="https://odedstein.com">Oded Stein</a><sup>2,3</sup></span>
+      <span><a href="https://people.cs.uchicago.edu/~ranahanocka/">Rana Hanocka</a><sup>1</sup></span>
+    </div>
+    <div class="affiliations" aria-label="affiliations"><sup>1</sup>University of Chicago, <sup>2</sup>University of
+      Southern California, <sup>3</sup>Technion</div>
+  </section>
+
+  <!-- Floating mini-TOC pinned to the right edge on wide screens. JS
+       marks the entry corresponding to the current section as active. -->
+  <aside class="side-toc" aria-label="Page sections" data-toc>
+    <a href="#summary" data-section="summary">
+      <span class="side-toc-dot" aria-hidden="true"></span>
+      <span class="side-toc-label">Summary</span>
+    </a>
+    <!-- <a href="#bibtex" data-section="bibtex">
+      <span class="side-toc-dot" aria-hidden="true"></span>
+      <span class="side-toc-label">BibTeX</span>
+    </a> -->
+  </aside>
+
+  <section class="teaser" aria-label="teaser">
+    <div class="imgsflex">
+      <figure class="blcent vidloadsync">
+        <video class="srcshape" style="margin: 0 0" autoplay preload muted loop playsinline
+          aria-label="image-shape correspondence teaset examples">
+          <source src="https://people.cs.uchicago.edu/~namanh/remoteassets/radmesh/evolutions-compress.mp4"
+            type="video/mp4">
+        </video>
+      </figure>
+    </div>
+    <div class="graybox p-margin">
+      <p>RADmesh deforms and remeshes a mesh, or a region of a mesh, towards a text
+        prompt. As a generative deformation technique enhanced by remeshing,
+        RADmesh is capable of growing large, detailed geometry that extends far
+        from the bounds of the original mesh, with sharp detail even at
+        extremities. Our coarse-to-fine remeshing schedule and optimizer state
+        interpolation help us achieve superior visual quality while keeping
+        triangles neat and efficient.
+      </p>
+      <p>(Project page still under construction. Check back soon for more!)</p>
+    </div>
+  </section>
+
+  <footer class="page-footer">
+    <p>
+      This webpage was adapted from the <a href="https://threedle.github.io/geometry-in-style/" target="_blank"
+        rel="noopener noreferrer">Geometry in Style</a>
+      webpage.
+    </p>
+  </footer>
+
+  <script>
+    // upon load, restart and sync the other video in the pair
+    const vidloadsyncers = document.getElementsByClassName("vidloadsync");
+    for (const elem of vidloadsyncers) {
+      const srcshapeVid = elem.getElementsByClassName("srcshape").item(0);
+      const rsltshapeVid = elem.getElementsByClassName("rsltshape").item(0);
+      srcshapeVid?.addEventListener("loadeddata", e => {
+        if (rsltshapeVid) {
+          rsltshapeVid.currentTime = 0;
+        }
+      });
+      rsltshapeVid?.addEventListener("loadeddata", e => {
+        if (srcshapeVid) {
+          srcshapeVid.currentTime = 0;
+        }
+      });
+    }
+  </script>
+
+  <script>
+    if (typeof BeforeAfter !== 'undefined') {
+      new BeforeAfter({ id: '#example1' });
+    }
+
+    // ---- Heading anchor links (deep-link helpers) -----------------
+    // For every <section id="..."> with an <h2>,
+    // inject a small "#" link before the heading text so visitors
+    // can hover to reveal and copy a permalink to that section.
+    (function () {
+      var sections = document.querySelectorAll('section[id] h2');
+      sections.forEach(function (h) {
+        var section = h.closest('section[id]');
+        if (!section) return;
+        if (h.querySelector('.heading-anchor')) return;
+        var a = document.createElement('a');
+        a.className = 'heading-anchor';
+        a.href = '#' + section.id;
+        a.setAttribute('aria-label', 'Permalink to ' + h.textContent.trim());
+        a.textContent = '#';
+        h.insertBefore(a, h.firstChild);
+      });
+    })();
+
+    // ---- Side TOC + active section highlight ----------------------
+    // One IntersectionObserver tracks every <section id>; the section
+    // with the largest visible area "wins" and its corresponding
+    // entry in the side TOC gets .is-active.
+    (function () {
+      var sections = Array.prototype.slice.call(document.querySelectorAll('section[id]'));
+      var tocLinks = document.querySelectorAll('.side-toc a[data-section]');
+      if (!sections.length) return;
+
+      var visibility = Object.create(null);
+
+      function setActive(id) {
+        tocLinks.forEach(function (a) {
+          a.classList.toggle('is-active', a.dataset.section === id);
+        });
+      }
+
+      if ('IntersectionObserver' in window) {
+        var obs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            visibility[entry.target.id] = entry.intersectionRatio;
+          });
+          var bestId = null;
+          var bestRatio = 0;
+          Object.keys(visibility).forEach(function (id) {
+            if (visibility[id] > bestRatio) {
+              bestRatio = visibility[id];
+              bestId = id;
+            }
+          });
+          if (bestId && bestRatio > 0) setActive(bestId);
+        }, {
+          // Treat the middle 60% of the viewport as the
+          // "reading area"; whichever section overlaps it most
+          // becomes the active one.
+          rootMargin: '-20% 0px -20% 0px',
+          threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
+        });
+        sections.forEach(function (s) { obs.observe(s); });
+      }
+
+      // Reveal the side TOC once the user has scrolled past the intro.
+      var toc = document.querySelector('[data-toc]');
+      if (toc) {
+        var introH = (document.querySelector('.intro') || {}).offsetHeight || 400;
+        var onScroll = function () {
+          if (window.pageYOffset > introH * 0.6) toc.classList.add('is-visible');
+          else toc.classList.remove('is-visible');
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      }
+    })();
+  </script>
+
+  <script>
+    // ---- BibTeX copy-to-clipboard ---------------------------------
+    (function () {
+      var btn = document.querySelector('.bibtex-copy-btn');
+      if (!btn) return;
+      var resetTimer = null;
+      btn.addEventListener('click', function () {
+        var target = document.getElementById(btn.dataset.target);
+        if (!target) return;
+        var text = target.innerText;
+        var done = function (ok) {
+          btn.classList.remove('is-success', 'is-error');
+          btn.classList.add(ok ? 'is-success' : 'is-error');
+          var label = btn.querySelector('.bibtex-copy-text');
+          if (label) label.textContent = ok ? 'Copied!' : 'Copy failed';
+          if (resetTimer) clearTimeout(resetTimer);
+          resetTimer = setTimeout(function () {
+            btn.classList.remove('is-success', 'is-error');
+            if (label) label.textContent = 'Copy';
+          }, 1800);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(function () { done(true); },
+            function () { done(false); });
+        } else {
+          try {
+            var ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            var ok = document.execCommand('copy');
+            document.body.removeChild(ta);
+            done(ok);
+          } catch (err) {
+            done(false);
+          }
+        }
+      });
+    })();
+  </script>
+</body>
+
+</html>
