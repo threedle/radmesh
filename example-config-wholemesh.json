@@ -1,0 +1,143 @@
+{
+  "ps_recording_save_fname": "example-run/psrec-sphere-biglotusflower.npz",
+  "dataset": {
+    "lists": {
+      "fnames": [
+        "example-run/sphere-ico4.obj"
+      ],
+      "prompts": [
+        "a 3d render of a big lotus flower"
+      ],
+      "prompts_negative": [
+        null
+      ]
+    }
+  },
+  "deform_by_csd": {
+    "optimized_quantity_save_fname": "example-run/drmsh-sphere-biglotusflower.npz",
+    "optimize_deform_via": "verts_normals_and_scale",
+    "solve_method": "arap",
+    "arap_energy_type": "spokes_and_rims_mine",
+    "postprocess_after_solve": "recenter_only",
+    "pin_first_vertex": true,
+    "local_step_procrustes": {
+      "lamb": 8.0,
+      "normalize_target_normals": true,
+      "apply_scale_after_procrustes": {
+        "mode": "coord456",
+        "clamp": {
+          "mode": "leaky",
+          "target": "coord",
+          "min": 0.98,
+          "max": 10.0,
+          "leaky_slope": 0.001
+        }
+      }
+    },
+    "periodic_remeshing": {
+      "use_interpd_optimizer_state": true,
+      "adjust_optimizer_state_using_interpd_deformqty": false,
+      "save_at_remesh_i": [],
+      "bkremeshlerps": {
+        "targetlen_schedule": "1.4>1.0:18",
+        "targetlen_as_multiplier_of_avglen": true,
+        "n_iters": 2,
+        "do_smooth_step": true,
+        "interp_using_barycoords": true
+      },
+      "remesh_schedule": 100
+    },
+    "n_iters": 2200,
+    "lr": 0.0015,
+    "optimizer": {
+      "type": "Adam",
+      "betas": [
+        0.95,
+        0.999
+      ]
+    },
+    "n_accum_iters": 2,
+    "step_after_every_backward": true,
+    "view_once_every": 100,
+    "save_at_epochs": [
+      1200,
+      1300,
+      1400,
+      1500,
+      1600,
+      1700,
+      1800,
+      1900,
+      2000,
+      2100,
+      2200,
+      2300,
+      2400,
+      2500,
+      2600
+    ],
+    "visual_loss_weight_schedule": "1.0",
+    "jacobian_id_loss_weight_schedule": "0.0",
+    "verts_normals_and_scale__scale_id_loss_weight_schedule": "0.0",
+    "mesh_batch_size": 1,
+    "csd_guidance": {
+      "view_batch_size": 8,
+      "adapt_dists": true,
+      "background_color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "resize_for_guidance": [
+        224,
+        224,
+        "cubic"
+      ],
+      "stage_I_weight": 1.0,
+      "stage_II_weight_schedule": "0.0>0.2:1000; 0.2>0.3:700",
+      "models": {
+        "guidance_scale": 100.0,
+        "torch_compile": [
+          false,
+          false
+        ]
+      },
+      "cams_and_lights": {
+        "raster_res": 512,
+        "dist_minmax": [
+          2.2,
+          2.8
+        ],
+        "azim_minmax": [
+          0.0,
+          360.0
+        ],
+        "elev_minmax": [
+          0.0,
+          45.0
+        ],
+        "//fov_minmax": [
+          60.0,
+          60.0
+        ],
+        "fov_minmax": [
+          80.0,
+          80.0
+        ],
+        "light_power": 5.0,
+        "aug_loc": false,
+        "aug_light": true,
+        "look_at": [
+          0,
+          0,
+          0
+        ],
+        "up": [
+          0,
+          -1,
+          0
+        ]
+      }
+    }
+  }
+}

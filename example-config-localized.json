@@ -1,0 +1,156 @@
+{
+  "ps_recording_save_fname": "example-run/psrec-spot-wings.npz",
+  "dataset": {
+    "lists": {
+      "fnames": [
+        "example-run/spot-15776f.obj"
+      ],
+      "prompts": [
+        "a 3d render of a cute chibi cow with two pegasus wings"
+      ],
+      "prompts_negative": [
+        null
+      ],
+      "vertex_selection_fnames": [
+        "example-run/spot-15776f-upperback-selection.npy"
+      ]
+    }
+  },
+  "deform_by_csd": {
+    "optimized_quantity_save_fname": "example-run/drmsh-spot-wings.npz",
+    "optimize_deform_via": "verts_normals_and_scale",
+    "solve_method": "arap",
+    "arap_energy_type": "spokes_and_rims_mine",
+    "postprocess_after_solve": "recenter_only",
+    "pin_first_vertex": true,
+    "local_step_procrustes": {
+      "lamb": 8.0,
+      "normalize_target_normals": true,
+      "apply_scale_after_procrustes": {
+        "mode": "coord456",
+        "clamp": {
+          "mode": "softcap",
+          "target": "coord",
+          "min": 0.005,
+          "max": 10.0,
+          "softcap_k": 12
+        }
+      }
+    },
+    "initial_inflate": {
+      "inflate_along_normals": 0.14,
+      "inflate_offset_smooth_lambda": 0.5,
+      "inflate_offset_smooth_iters": 1,
+      "vsel_smooth_lambda": 0.5,
+      "vsel_smooth_iters": 2
+    },
+    "adjust_things_via_selection_volume": {
+      "initial_normal_inflate": {
+        "formula": "powercbrt1_replace",
+        "a": 4.3,
+        "b": 5.2,
+        "max": 0.4
+      }
+    },
+    "periodic_remeshing": {
+      "use_interpd_optimizer_state": true,
+      "adjust_optimizer_state_using_interpd_deformqty": false,
+      "save_at_remesh_i": [],
+      "bkremeshlerps": {
+        "targetlen_schedule": "1.7>1.3:10; 1.3>1:5",
+        "targetlen_as_multiplier_of_avglen": true,
+        "n_iters": 2,
+        "n_iters_for_init_remesh": 5,
+        "do_smooth_step": true,
+        "interp_using_barycoords": true
+      },
+      "remesh_schedule": 100
+    },
+    "n_iters": 2600,
+    "lr": 0.00175,
+    "optimizer": {
+      "type": "Adam",
+      "betas": [
+        0.95,
+        0.999
+      ]
+    },
+    "n_accum_iters": 2,
+    "step_after_every_backward": true,
+    "view_once_every": 100,
+    "save_at_epochs": [
+      1400,
+      1600,
+      1800,
+      2000,
+      2200,
+      2300,
+      2400,
+      2500,
+      2600
+    ],
+    "mesh_batch_size": 1,
+    "visual_loss_weight_schedule": "1.0",
+    "jacobian_id_loss_weight_schedule": "0.0",
+    "verts_normals_and_scale__scale_id_loss_weight_schedule": "0.0",
+    "csd_guidance": {
+      "view_batch_size": 8,
+      "adapt_dists": true,
+      "background_color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "resize_for_guidance": [
+        224,
+        224,
+        "cubic"
+      ],
+      "stage_I_weight": 1.0,
+      "stage_II_weight_schedule": "0.0>0.25:1000; 0.25>0.4:700",
+      "models": {
+        "guidance_scale": 100.0,
+        "torch_compile": [
+          false,
+          false
+        ]
+      },
+      "cams_and_lights": {
+        "raster_res": 512,
+        "dist_minmax": [
+          2.2,
+          2.8
+        ],
+        "azim_minmax": [
+          0.0,
+          360.0
+        ],
+        "elev_minmax": [
+          0.0,
+          60.0
+        ],
+        "//fov_minmax": [
+          70.0,
+          70.0
+        ],
+        "fov_minmax": [
+          55.0,
+          80.0
+        ],
+        "light_power": 5.0,
+        "aug_loc": false,
+        "aug_light": true,
+        "look_at": [
+          0,
+          0,
+          0
+        ],
+        "up": [
+          0,
+          -1,
+          0
+        ]
+      }
+    }
+  }
+}
