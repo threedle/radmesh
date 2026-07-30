@@ -127,7 +127,7 @@ algorithms, but this comes with a heavy performance penalty.
 
 ```
 @inproceedings{dinh2026radmesh,
-  title     = {{Improving 2D Feature Representations by 3D-Aware Fine-Tuning}},
+  title     = {RADmesh: Remesh-Aware Mesh Deformation},
   author    = {Dinh, Nam Anh and Lang, Itai and Stein, Oded and Hanocka, Rana},
   booktitle = {European Conference on Computer Vision (ECCV)},
   year      = {2026}
