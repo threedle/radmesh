@@ -60,12 +60,13 @@
     <nav>
       <a target="_blank" href="#" class="venue" aria-label="venue"><i class="icon fas fa-map-marker-alt"
           aria-hidden="true"></i>ECCV 2026</a>
-      <a target="_blank" href="#" aria-label="paper pdf">
+      <a target="_blank" href="https://people.cs.uchicago.edu/~namanh/papers/radmesh.pdf" aria-label="paper pdf">
         <i class="icon fas fa-file-pdf"></i>Paper
       </a>
       <a target="_blank" href="#"><i class="icon ai ai-arxiv"></i>arXiv</a>
       <a target="_blank" href="https://github.com/threedle/radmesh/" aria-label="code github"><i
           class="icon fab fa-github"></i>Code</a>
+      <a href="#bibtex" aria-label="bibtex">BibTeX</a>
     </nav>
     <div class="authors" aria-label="authors">
       <span><a href="https://people.cs.uchicago.edu/~namanh">Nam Anh Dinh</a><sup>1</sup></span>
@@ -84,13 +85,13 @@
       <span class="side-toc-dot" aria-hidden="true"></span>
       <span class="side-toc-label">Summary</span>
     </a>
-    <!-- <a href="#bibtex" data-section="bibtex">
+    <a href="#bibtex" data-section="bibtex">
       <span class="side-toc-dot" aria-hidden="true"></span>
       <span class="side-toc-label">BibTeX</span>
-    </a> -->
+    </a>
   </aside>
 
-  <section class="teaser" aria-label="teaser">
+  <section id="teaser" class="teaser" aria-label="teaser">
     <div class="imgsflex">
       <figure class="blcent vidloadsync">
         <video class="srcshape" style="margin: 0 0" autoplay preload muted loop playsinline
@@ -112,6 +113,26 @@
       <p>(Project page still under construction. Check back soon for more!)</p>
     </div>
   </section>
+
+  <section id="bibtex">
+      <h2>BibTeX</h2>
+      <div class="bibtex-wrapper">
+        <button type="button" class="bibtex-copy-btn" data-target="bibtex-code"
+          aria-label="Copy BibTeX entry to clipboard">
+          <span class="bibtex-copy-icon" aria-hidden="true">
+            <i class="far fa-copy"></i>
+          </span>
+          <span class="bibtex-copy-text">Copy</span>
+        </button>
+        <pre class="graybox" id="bibtex-code">@inproceedings{dinh2026radmesh,
+  title     = {RADmesh: Remesh-Aware Mesh Deformation},
+  author    = {Dinh, Nam Anh and Lang, Itai and Stein, Oded and Hanocka, Rana},
+  booktitle = {European Conference on Computer Vision (ECCV)},
+  year      = {2026}
+}
+</pre>
+      </div>
+    </section>
 
   <footer class="page-footer">
     <p>
