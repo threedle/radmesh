@@ -63,6 +63,10 @@
       <a target="_blank" href="https://people.cs.uchicago.edu/~namanh/papers/radmesh.pdf" aria-label="paper pdf">
         <i class="icon fas fa-file-pdf"></i>Paper
       </a>
+      <a target="_blank" href="https://people.cs.uchicago.edu/~namanh/remoteassets/radmesh-supplementary-material.zip"
+        aria-label="supplementary material zip">
+        <i class="icon fas fa-file-archive"></i>Supp.
+      </a>
       <a target="_blank" href="#"><i class="icon ai ai-arxiv"></i>arXiv</a>
       <a target="_blank" href="https://github.com/threedle/radmesh/" aria-label="code github"><i
           class="icon fab fa-github"></i>Code</a>
@@ -80,59 +84,223 @@
 
   <!-- Floating mini-TOC pinned to the right edge on wide screens. JS
        marks the entry corresponding to the current section as active. -->
-  <aside class="side-toc" aria-label="Page sections" data-toc>
+  <aside class="side-toc hidden" aria-label="Page sections" data-toc>
     <a href="#summary" data-section="summary">
-      <span class="side-toc-dot" aria-hidden="true"></span>
       <span class="side-toc-label">Summary</span>
+      <span class="side-toc-dot" aria-hidden="true"></span>
+    </a>
+    <a href="#overview" data-section="overview">
+      <span class="side-toc-label">Overview</span>
+      <span class="side-toc-dot" aria-hidden="true"></span>
+    </a>
+    <a href="#gallery" data-section="gallery">
+      <span class="side-toc-label">Gallery</span>
+      <span class="side-toc-dot" aria-hidden="true"></span>
+    </a>
+    <a href="#deformation" data-section="deformation">
+      <span class="side-toc-label">Deformation method</span>
+      <span class="side-toc-dot" aria-hidden="true"></span>
+    </a>
+    <a href="#remeshing" data-section="remeshing">
+      <span class="side-toc-label">Remeshing method</span>
+      <span class="side-toc-dot" aria-hidden="true"></span>
+    </a>
+    <a href="#tailored-triangulation" data-section="tailored-triangulation">
+      <span class="side-toc-label">Tailored triangulation</span>
+      <span class="side-toc-dot" aria-hidden="true"></span>
+    </a>
+    <a href="#workflows" data-section="workflows">
+      <span class="side-toc-label">Applications &amp; workflows</span>
+      <span class="side-toc-dot" aria-hidden="true"></span>
     </a>
     <a href="#bibtex" data-section="bibtex">
-      <span class="side-toc-dot" aria-hidden="true"></span>
       <span class="side-toc-label">BibTeX</span>
+      <span class="side-toc-dot" aria-hidden="true"></span>
     </a>
   </aside>
-
   <section id="teaser" class="teaser" aria-label="teaser">
     <div class="imgsflex">
       <figure class="blcent vidloadsync">
-        <video class="srcshape" style="margin: 0 0" autoplay preload muted loop playsinline
-          aria-label="image-shape correspondence teaset examples">
+        <video class="srcshape" style="margin: 0 0" autoplay preload muted loop playsinline controls
+          aria-label="example evolution animations of deformation and remeshing performed by radmesh towards various prompts">
           <source src="https://people.cs.uchicago.edu/~namanh/remoteassets/radmesh/evolutions-compress.mp4"
             type="video/mp4">
         </video>
       </figure>
     </div>
     <div class="graybox p-margin">
-      <p>RADmesh deforms and remeshes a mesh, or a region of a mesh, towards a text
-        prompt. As a generative deformation technique enhanced by remeshing,
+      <p><b>RADmesh is a generative deformation technique enhanced by remeshing.</b>
+        Given a text prompt, it deforms and remeshes a mesh region to form new geometric features;
+        it can also detailize a whole mesh.
         RADmesh is capable of growing large, detailed geometry that extends far
         from the bounds of the original mesh, with sharp detail even at
-        extremities. Our coarse-to-fine remeshing schedule and optimizer state
-        interpolation help us achieve superior visual quality while keeping
-        triangles neat and efficient.
+        extremities. Our dARAP-based per-vertex deformation representation,
+        coarse-to-fine remeshing schedule, and optimizer state interpolation
+        help us achieve superior visual quality while keeping triangles neat and
+        efficient.
       </p>
-      <p>(Project page still under construction. Check back soon for more!)</p>
     </div>
+  </section>
+  <section id="overview">
+    <h2>Overview</h2>
+    <figure class="fullwidth">
+      <img src="https://people.cs.uchicago.edu/~namanh/remoteassets/radmesh/overview.webp">
+    </figure>
+    <div class="graybox p-margin">
+      <p>Geometry is optimized via gradient
+        descent of our vertex-based deformation quantity <i>Q</i>, with associated optimizer state, with respect
+        to a base mesh. At epoch i, we solve for the deformation, render,
+        take visual loss (in our case, Cascaded Score Distillation, an SDS variant), and update the quantity. Once
+        every <i>N</i> epochs, we remesh the last
+        deformed shape, interpolate the optimizer state onto the result, and use it as the new
+        source mesh until the next scheduled remesh.
+        <br><i class="faint">(The deformation in this figure is exaggerated for illustrative purposes.)</i>
+      </p>
+  </section>
+  <section id="gallery">
+    <h2>Gallery</h2>
+    <figure class="fullwidth">
+      <img src="https://people.cs.uchicago.edu/~namanh/remoteassets/radmesh/gallery.webp">
+    </figure>
+    <p class="graybox">
+      <i>Top row</i>: our method is capable of growing large parts out of small selected regions on diverse
+      shapes, organic and manufactured. The results show symmetry, high detail even at
+      extremities, and clean geometry at selection boundaries. <i>Bottom row</i>: we can also
+      perform global "detailization" deformations, where the whole shape is allowed to change.
+      This is useful on simple base shapes and demonstrates the ability to change both high-level structure and finer
+      details.
+    </p>
+  </section>
+  <section id="deformation">
+    <h2>Deformation method</h2>
+    <figure class="mediumwidth blcent">
+      <img src="https://people.cs.uchicago.edu/~namanh/remoteassets/radmesh/deformation-overview.webp">
+    </figure>
+    <div class="graybox p-margin">
+
+      The deformation quantity <i>Q</i> (our optimization variable) is
+      a 6-vector for each vertex <i>k</i>, consisting of two halves: a direction
+      component,
+      <i>q<sub>k</sub><sup>dir</sup></sup></i> and a scale component
+      <i>q<sub>k</sub><sup>scale</sup></sup></i>. Extending the rotation-only dARAP solve method of <a
+        href="https://threedle.github.io/geometry-in-style/" target="_blank" rel="noopener noreferrer">Geometry in
+        Style</a>, the RADmesh local step first finds both
+      <ul>
+        <li><i>R<sub>k</sub></i>, the
+          local 3x3 <i>rotation</i> for each vertex neighborhood (defined as the 1-ring neighborhood of
+          "spokes-and-rims"
+          halfedges),
+          by solving an orthogonal Procrustes problem given the rest normal
+          <i>u<sub>k</sub></i>, the neighborhood edge vectors, and the current
+          <i>q<sub>k</sub><sup>dir</sup></sup></i>.
+        </li>
+        <li><i>S<sub>k</sub></i>, the local 3x3 <i>scaling</i> for each vertex neighborhood,
+          which is a scaling matrix with <i>q<sub>k</sub><sup>scale</sup></sup></i> as the diagonal
+        </li>
+      </ul>
+      <p>The extra scale parameter provides enough extra degrees of
+        freedom to allow deformations that grow large, detailed parts, while
+        staying minimal enough to be explicitly controllable (for example, by applying
+        clamps to the parameter directly rather than adding losses) and gradual
+        enough to work with our periodic remeshing.
+      </p>
+    </div>
+  </section>
+  <section id="remeshing">
+    <h2>Remeshing method</h2>
+    <figure>
+      <video class="equationwidth blcent vidloadsync" autoplay preload muted loop playsinline controls
+        aria-label="animation visualizing the steps of Botsch-Kobbelt isotropic remeshing">
+        <source src="https://people.cs.uchicago.edu/~namanh/remoteassets/radmesh/bkviz.mp4" type="video/mp4">
+      </video>
+    </figure>
+    <div class="graybox p-margin">
+      <p>
+        At regular intervals during deformation optimization, we isotropically remesh the
+        latest deformed surface using the Botsch-Kobbelt remeshing method. Each iteration of the Botsch-Kobbelt method
+        involves edge splits (to shorten long edges), edge collapses (to remove tiny edges) ,
+        edge flips (to balance vertex valencies), tangential smoothing (to relax sharp triangles),
+        and reprojection (to preserve the original surface).
+        Every <i>N</i>&nbsp;=&nbsp;100 deformation optimization epochs, we trigger a remesh, consisting of 2
+        Botsch-Kobbelt iterations.
+      </p>
+      <p>
+        Crucially, we use the barycentric coordinates from the reprojection step to interpolate vertex attributes.
+        Since our optimization variable is a per-vertex quantity, this includes the optimizer state, in addition to the
+        selection region itself.
+      </p>
+    </div>
+    <figure class="medsmallwidth blcent extra-top-margin">
+      <img src="https://people.cs.uchicago.edu/~namanh/remoteassets/radmesh/remeshonceabl.webp">
+    </figure>
+    <p class="graybox">
+      The target edge length for the Botsch-Kobbelt method is on a
+      <b>coarse-to-fine schedule</b> over the course of remeshes. We show that this
+      coarse-to-fine schedule is essential: simply finely remeshing the region only once at
+      the start, even to higher resolutions than the final resolution of our coarse-to-fine
+      schedule, fails to produce large, quality growths. This shows the significance of a
+      coarse-to-fine remeshing schedule.
+    </p>
+  </section>
+  <section id="tailored-triangulation">
+    <h2>Tailored triangulation</h2>
+    <figure class="fullwidth">
+      <img src="https://people.cs.uchicago.edu/~namanh/remoteassets/radmesh/spheres.webp">
+    </figure>
+    <div class="graybox p-margin">
+      <p>
+        Taking global deformation of a sphere as an example, we show that each final triangulation,
+        when applied to the original geometry, encodes the structures and appendages requiring high
+        vertex density in the result shape. This shows the appropriateness and adaptivity of
+        the generated triangulation for the generated geometry, not merely a uniform upsample
+        of the original triangulation.
+      </p>
+    </div>
+  </section>
+  <section id="workflows">
+    <h2>Applications &amp; workflows</h2>
+    <figure class="equationwidth blcent" style="--per-eqn-mult: 1">
+      <img src="https://people.cs.uchicago.edu/~namanh/remoteassets/radmesh/torsoiter.webp">
+    </figure>
+    <p class="graybox">
+      An example extended workflow comprising multiple prompts. We can
+      iteratively add parts (arms, head, and a pineapple on the head) to the
+      torso with high detail, including on top of previously grown parts.
+    </p>
+    <figure class="medsmallwidth blcent extra-top-margin">
+      <img src="https://people.cs.uchicago.edu/~namanh/remoteassets/radmesh/tex.webp">
+    </figure>
+    <p class="graybox">
+      Despite changing connectivity, our method interpolates vertex attributes
+      inside, and fully preserves correspondence, geometry, and data of mesh
+      elements (such as corner UVs) outside the region selected for deforming
+      and remeshing. We demonstrate the workflow of deforming and remeshing a
+      region on a mesh with existing UVs and texture: the rest of the mesh
+      is unchanged, and the user can choose to unwrap and texture the newly
+      grown geometry.
+    </p>
+
   </section>
 
   <section id="bibtex">
-      <h2>BibTeX</h2>
-      <div class="bibtex-wrapper">
-        <button type="button" class="bibtex-copy-btn" data-target="bibtex-code"
-          aria-label="Copy BibTeX entry to clipboard">
-          <span class="bibtex-copy-icon" aria-hidden="true">
-            <i class="far fa-copy"></i>
-          </span>
-          <span class="bibtex-copy-text">Copy</span>
-        </button>
-        <pre class="graybox" id="bibtex-code">@inproceedings{dinh2026radmesh,
+    <h2>BibTeX</h2>
+    <div class="bibtex-wrapper">
+      <button type="button" class="bibtex-copy-btn" data-target="bibtex-code"
+        aria-label="Copy BibTeX entry to clipboard">
+        <span class="bibtex-copy-icon" aria-hidden="true">
+          <i class="far fa-copy"></i>
+        </span>
+        <span class="bibtex-copy-text">Copy</span>
+      </button>
+      <pre class="graybox" id="bibtex-code">@inproceedings{dinh2026radmesh,
   title     = {RADmesh: Remesh-Aware Mesh Deformation},
   author    = {Dinh, Nam Anh and Lang, Itai and Stein, Oded and Hanocka, Rana},
   booktitle = {European Conference on Computer Vision (ECCV)},
   year      = {2026}
 }
 </pre>
-      </div>
-    </section>
+    </div>
+  </section>
 
   <footer class="page-footer">
     <p>

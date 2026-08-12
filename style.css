@@ -137,7 +137,7 @@ h2 {
     >a {
       transition: background-color 0.1s;
       text-decoration: none;
-      text-wrap: wrap auto;
+      text-wrap: nowrap auto;
     }
 
     >a:hover {
@@ -248,6 +248,7 @@ video {
 section {
   margin: 4px auto;
   max-width: 1300px;
+  font-size: 1.2rem;
 }
 
 
@@ -284,13 +285,18 @@ section {
 }
 
 
-p {
-  font-size: 1.2rem;
-}
-
 .p-margin {
   margin-top: 1em;
   margin-bottom: 1em;
+}
+
+.extra-top-margin {
+  margin-top: 3em;
+}
+
+.faint {
+  font-size: 1em;
+  color: gray;
 }
 
 .graybox {
@@ -465,6 +471,7 @@ model-viewer::after {
 
 .bibtex-wrapper pre {
   line-height: 1.5;
+  font-size: 0.98rem;
 }
 
 .bibtex-copy-btn {
@@ -569,17 +576,19 @@ section[id] h2:focus-within .heading-anchor,
    default and shown via .is-visible once the user has scrolled past
    the intro. Hidden entirely on screens that don't have room for it. */
 .side-toc {
+  text-align: right;
   position: fixed;
   top: 50%;
   right: 0.9rem;
   transform: translateY(-50%);
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 0.55rem;
   z-index: 50;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.25s ease;
+  width: 14%;
 }
 
 .side-toc.is-visible {
@@ -588,7 +597,9 @@ section[id] h2:focus-within .heading-anchor,
 }
 
 .side-toc a {
+  flex: 0 1 100%;
   display: inline-flex;
+  justify-content: right;
   align-items: center;
   gap: 0.55rem;
   text-decoration: none;
@@ -609,9 +620,9 @@ section[id] h2:focus-within .heading-anchor,
 .side-toc-label {
   display: inline-block;
   padding: 0.2rem 0.55rem;
-  background: rgba(255, 255, 255, 0.96);
+  /* background: rgba(255, 255, 255, 0.96); */
   border-radius: 4px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  /* box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08); */
   opacity: 0;
   transform: translateX(6px);
   transition: opacity 0.18s ease, transform 0.18s ease, color 0.18s ease;
@@ -716,8 +727,8 @@ pre {
     --venuesz: 0.9rem;
     --authors-relative-shift: 0.1;
     --nav-upshift-mult: -0.8;
-    --nav-flex-basis: 25%;
-    --nav-special-flex-basis: 70%;
+    --nav-flex-basis: 9%;
+    --nav-special-flex-basis: 78%;
 
     .authors {
       font-size: 1.1rem;
@@ -745,17 +756,6 @@ pre {
 
 }
 
-@media (min-width: 430px) {
-  .intro {
-    --nav-flex-basis: auto;
-    --nav-special-flex-basis: auto;
-
-    nav {
-      flex-wrap: nowrap;
-    }
-  }
-
-}
 
 @media (min-width: 660px) {
   .intro {
@@ -794,6 +794,17 @@ pre {
 
 @media (min-width: 900px) {
   .intro {
+    --nav-flex-basis: 0;
+    --nav-special-flex-basis: auto;
+
+    nav {
+      flex-wrap: nowrap;
+    }
+  }
+}
+
+@media (min-width: 900px) {
+  .intro {
     --iconsz: 80px;
     --venuesz: 1.1rem;
     --authors-relative-shift: 0.28;
@@ -807,10 +818,6 @@ pre {
       font-size: 1.1rem;
     }
 
-    nav {
-      justify-content: right;
-      margin-right: 10%;
-    }
   }
 
   section {
@@ -871,6 +878,15 @@ pre {
     --eqnwidthmult: 0.55;
   }
 
+}
+
+@media (min-width: 1500px) {
+  .intro {
+    nav {
+      justify-content: right;
+      margin-right: 10%;
+    }
+  }
 }
 
 @media (min-width: 1700px) {
