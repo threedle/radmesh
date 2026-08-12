@@ -727,8 +727,13 @@ pre {
     --venuesz: 0.9rem;
     --authors-relative-shift: 0.1;
     --nav-upshift-mult: -0.8;
-    --nav-flex-basis: 9%;
-    --nav-special-flex-basis: 78%;
+    --nav-flex-basis: 0;
+    --nav-special-flex-basis: 90%;
+
+    .venue {
+      margin-left: 30%;
+      margin-right: 30%;
+    }
 
     .authors {
       font-size: 1.1rem;
@@ -792,10 +797,15 @@ pre {
 
 }
 
-@media (min-width: 900px) {
+@media (min-width: 1300px) {
   .intro {
     --nav-flex-basis: 0;
     --nav-special-flex-basis: auto;
+
+    .venue {
+      margin-left: 0;
+      margin-right: 0;
+    }
 
     nav {
       flex-wrap: nowrap;
