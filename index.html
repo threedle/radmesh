@@ -61,7 +61,7 @@
     <nav>
       <a target="_blank" href="#" class="venue" aria-label="venue"><i class="icon fas fa-map-marker-alt"
           aria-hidden="true"></i>ECCV 2026 (Oral)</a>
-      <a target="_blank" href="https://people.cs.uchicago.edu/~namanh/papers/radmesh.pdf" aria-label="paper pdf">
+      <a target="_blank" href="https://arxiv.org/pdf/2608.17182" aria-label="paper pdf">
         <i class="icon fas fa-file-pdf"></i>Paper
       </a>
       <a target="_blank" href="https://people.cs.uchicago.edu/~namanh/remoteassets/radmesh/radmesh-supplementary-material.zip"
@@ -90,12 +90,12 @@
       <span class="side-toc-label">Summary</span>
       <span class="side-toc-dot" aria-hidden="true"></span>
     </a>
-    <a href="#overview" data-section="overview">
-      <span class="side-toc-label">Overview</span>
-      <span class="side-toc-dot" aria-hidden="true"></span>
-    </a>
     <a href="#gallery" data-section="gallery">
       <span class="side-toc-label">Gallery</span>
+      <span class="side-toc-dot" aria-hidden="true"></span>
+    </a>
+    <a href="#overview" data-section="overview">
+      <span class="side-toc-label">Overview</span>
       <span class="side-toc-dot" aria-hidden="true"></span>
     </a>
     <a href="#deformation" data-section="deformation">
@@ -142,22 +142,6 @@
       </p>
     </div>
   </section>
-  <section id="overview">
-    <h2>Overview</h2>
-    <figure class="fullwidth">
-      <img src="assets/overview.webp">
-    </figure>
-    <div class="graybox p-margin">
-      <p>Geometry is optimized via gradient
-        descent of our vertex-based deformation quantity <i>Q</i>, with associated optimizer state, with respect
-        to a base mesh. At epoch i, we solve for the deformation, render,
-        take visual loss (in our case, Cascaded Score Distillation, an SDS variant), and update the quantity. Once
-        every <i>N</i> epochs, we remesh the last
-        deformed shape, interpolate the optimizer state onto the result, and use it as the new
-        source mesh until the next scheduled remesh.
-        <br><i class="faint">(The deformation in this figure is exaggerated for illustrative purposes.)</i>
-      </p>
-  </section>
   <section id="gallery">
     <h2>Gallery</h2>
     <figure class="fullwidth">
@@ -171,6 +155,21 @@
       This is useful on simple base shapes and demonstrates the ability to change both high-level structure and finer
       details.
     </p>
+  </section>
+  <section id="overview">
+    <h2>Overview</h2>
+    <figure class="fullwidth">
+      <img src="assets/overview.webp">
+    </figure>
+    <div class="graybox p-margin">
+      <p>Geometry is optimized via gradient
+        descent of our vertex-based deformation quantity <i>Q</i>, with associated optimizer state, with respect
+        to a base mesh. At epoch i, we solve for the deformation, render,
+        take visual loss (in our case, Cascaded Score Distillation, an SDS variant), and update the quantity. Once
+        every <i>N</i> epochs, we remesh the last
+        deformed shape, interpolate the optimizer state onto the result, and use it as the new
+        source mesh until the next scheduled remesh.
+      </p>
   </section>
   <section id="deformation">
     <h2>Deformation method</h2>
