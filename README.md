@@ -1,6 +1,6 @@
 # RADmesh: Remesh-Aware Mesh Deformation
 
-The official implementation for our **ECCV 2026 (Oral)** paper.
+The official implementation for our **ECCV 2026 (Spotlight Oral)** paper.
 
 [project page](https://threedle.github.io/radmesh/) | [arXiv](https://arxiv.org/abs/2608.17182) | [BibTeX](#bibtex)
 
